@@ -2,8 +2,8 @@
 
 # Game board in the Connect Four game
 class Board
-  def initialize
-    @board = Array.new(6) { Array.new(7) }
+  def initialize(board = Array.new(6) { Array.new(7) })
+    @board = board
   end
 
   def display
@@ -16,5 +16,6 @@ class Board
   end
 
   def full_column?(column)
+    @board.all? { |row| row[column] }
   end
 end

@@ -40,4 +40,30 @@ class Board
       end
     end
   end
+
+  def four_consecutive_in_left_diagonal?
+    (0..3).any? do |row|
+      (0..2).any? do |col|
+        left_diagonal = []
+
+        (0..3).each do |idx|
+          left_diagonal << @board.dig(row + idx, col + idx)
+        end
+        left_diagonal.uniq.length == 1 && !left_diagonal.include?(nil)
+      end
+    end
+  end
+
+  def four_consecutive_in_right_diagonal?
+    (0..3).any? do |row|
+      (3...6).any? do |col|
+        right_diagonal = []
+
+        (0..3).each do |idx|
+          right_diagonal << @board.dig(row + idx, col - idx)
+        end
+        right_diagonal.uniq.length == 1 && !right_diagonal.include?(nil)
+      end
+    end
+  end
 end

@@ -81,4 +81,104 @@ describe Board do
       end
     end
   end
+
+  describe '#four_consecutive_in_left_diagonal?' do
+    context 'when there are four consecutive pieces in left diagonal' do
+      subject(:board_cons_left_diagonal) { described_class.new }
+
+      before do
+        board_cons_left_diagonal.update_board(1, 'X')
+
+        board_cons_left_diagonal.update_board(2, 'O')
+        board_cons_left_diagonal.update_board(2, 'X')
+
+        board_cons_left_diagonal.update_board(3, 'X')
+        board_cons_left_diagonal.update_board(3, 'X')
+        board_cons_left_diagonal.update_board(3, 'X')
+
+        board_cons_left_diagonal.update_board(4, 'O')
+        board_cons_left_diagonal.update_board(4, 'O')
+        board_cons_left_diagonal.update_board(4, 'O')
+        board_cons_left_diagonal.update_board(4, 'X')
+      end
+
+      it 'returns true' do
+        expect(board_cons_left_diagonal).to be_four_consecutive_in_left_diagonal
+      end
+    end
+
+    context 'when there are no four consecutive pieces in any diagonal' do
+      subject(:board_no_cons__left_diagonal) { described_class.new }
+
+      before do
+        board_no_cons__left_diagonal.update_board(0, 'O')
+        board_no_cons__left_diagonal.update_board(0, 'X')
+        board_no_cons__left_diagonal.update_board(0, 'O')
+        board_no_cons__left_diagonal.update_board(0, 'O')
+
+        board_no_cons__left_diagonal.update_board(1, 'O')
+        board_no_cons__left_diagonal.update_board(1, 'X')
+        board_no_cons__left_diagonal.update_board(1, 'O')
+
+        board_no_cons__left_diagonal.update_board(2, 'X')
+        board_no_cons__left_diagonal.update_board(2, 'O')
+
+        board_no_cons__left_diagonal.update_board(3, 'O')
+      end
+
+      it 'returns false' do
+        expect(board_no_cons__left_diagonal).not_to be_four_consecutive_in_left_diagonal
+      end
+    end
+  end
+
+  describe '#four_consecutive_in_right_diagonal?' do
+    context 'when there are four consecutive pieces in right diagonal' do
+      subject(:board_cons_right_diagonal) { described_class.new }
+
+      before do
+        board_cons_right_diagonal.update_board(0, 'O')
+        board_cons_right_diagonal.update_board(0, 'X')
+        board_cons_right_diagonal.update_board(0, 'O')
+        board_cons_right_diagonal.update_board(0, 'O')
+
+        board_cons_right_diagonal.update_board(1, 'O')
+        board_cons_right_diagonal.update_board(1, 'X')
+        board_cons_right_diagonal.update_board(1, 'O')
+
+        board_cons_right_diagonal.update_board(2, 'X')
+        board_cons_right_diagonal.update_board(2, 'O')
+
+        board_cons_right_diagonal.update_board(3, 'O')
+      end
+
+      it 'returns true' do
+        expect(board_cons_right_diagonal).to be_four_consecutive_in_right_diagonal
+      end
+    end
+
+    context 'when there are no four consecutive pieces in any diagonal' do
+      subject(:board_no_cons__right_diagonal) { described_class.new }
+
+      before do
+        board_no_cons__right_diagonal.update_board(1, 'X')
+
+        board_no_cons__right_diagonal.update_board(2, 'O')
+        board_no_cons__right_diagonal.update_board(2, 'X')
+
+        board_no_cons__right_diagonal.update_board(3, 'X')
+        board_no_cons__right_diagonal.update_board(3, 'X')
+        board_no_cons__right_diagonal.update_board(3, 'X')
+
+        board_no_cons__right_diagonal.update_board(4, 'O')
+        board_no_cons__right_diagonal.update_board(4, 'O')
+        board_no_cons__right_diagonal.update_board(4, 'O')
+        board_no_cons__right_diagonal.update_board(4, 'X')
+      end
+
+      it 'returns false' do
+        expect(board_no_cons__right_diagonal).not_to be_four_consecutive_in_right_diagonal
+      end
+    end
+  end
 end

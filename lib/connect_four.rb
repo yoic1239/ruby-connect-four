@@ -14,6 +14,7 @@ class Game
 
   def play
     introduction
+    drop_piece
   end
 
   def player_input
@@ -28,6 +29,13 @@ class Game
         puts 'Invalid input! You should input a valid column.'
       end
     end
+  end
+
+  def drop_piece
+    puts "\e[0;34m#{@curr_player.name}\e[0m's turn"
+    puts 'Which column would you like to put your piece?'
+    selected_column = player_input
+    @board.update_board(selected_column, @curr_player.piece)
   end
 
   def introduction

@@ -78,4 +78,22 @@ describe Game do
       end
     end
   end
+
+  describe '#drop_piece' do
+    subject(:game_drop) { described_class.new(board_drop) }
+    let(:board_drop) { instance_double(Board) }
+    let(:selected_column) { 0 }
+
+    context 'when dropping a piece' do
+      before do
+        allow(game_drop).to receive(:player_input).and_return(selected_column)
+      end
+
+      it 'sends update_board to board' do
+        piece = game_drop.instance_variable_get(:@curr_player).piece
+        expect(board_drop).to receive(:update_board).with(selected_column, piece).once
+        game_drop.drop_piece
+      end
+    end
+  end
 end

@@ -19,4 +19,9 @@ class Board
   def full_column?(column)
     @board.all? { |row| row[column] }
   end
+
+  def update_board(column, piece)
+    update_row = @board.find_index { |row| row[column].nil? }
+    @board[update_row][column] = piece
+  end
 end

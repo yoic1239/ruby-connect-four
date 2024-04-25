@@ -22,4 +22,23 @@ describe Board do
       end
     end
   end
+
+  describe '#update_board' do
+    subject(:board_update) { described_class.new([["\u26aa"] + Array.new(6)] + Array.new(5) { Array.new(7) }) }
+    context 'when the column is empty' do
+      it 'add piece at the first row of the column' do
+        empty_column = 1
+        piece = "\u26aa"
+        expect { board_update.update_board(empty_column, piece) }.to change { board_update.instance_variable_get(:@board)[0][empty_column] }.from(nil).to(piece)
+      end
+    end
+
+    context 'when the column is not empty' do
+      it 'add piece at the next row of the column' do
+        column_with_piece = 0
+        piece = "\u26aa"
+        expect { board_update.update_board(column_with_piece, piece) }.to change { board_update.instance_variable_get(:@board)[1][column_with_piece] }.from(nil).to(piece)
+      end
+    end
+  end
 end

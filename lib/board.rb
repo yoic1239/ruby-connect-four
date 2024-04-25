@@ -24,4 +24,12 @@ class Board
     update_row = @board.find_index { |row| row[column].nil? }
     @board[update_row][column] = piece
   end
+
+  def four_consecutive_in_row?
+    @board.any? do |row|
+      row.each_cons(4).any? do |cons_pieces|
+        cons_pieces.uniq.length == 1 && !cons_pieces.include?(nil)
+      end
+    end
+  end
 end

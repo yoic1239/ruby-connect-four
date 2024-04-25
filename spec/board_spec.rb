@@ -3,7 +3,7 @@
 require_relative '../lib/board'
 
 describe Board do
-  describe '#column_full?' do
+  describe '#full_column?' do
     subject(:board_column_full) { described_class.new(Array.new(6) { ['X'] + Array.new(6) }) }
 
     context 'when any row of the column is nil' do
@@ -38,6 +38,26 @@ describe Board do
         column_with_piece = 0
         piece = "\u26aa"
         expect { board_update.update_board(column_with_piece, piece) }.to change { board_update.instance_variable_get(:@board)[1][column_with_piece] }.from(nil).to(piece)
+      end
+    end
+  end
+
+  describe '#four_consecutive_in_row?' do
+    context 'when there are four consecutive pieces in any row' do
+      subject(:board_consecutive_row) { described_class.new([consecutive_row] + Array.new(5) { Array.new(7) }) }
+      let(:consecutive_row) { Array.new(2) + Array.new(4, "\u26aa") + Array.new(1) }
+
+      it 'returns true' do
+        expect(board_consecutive_row).to be_four_consecutive_in_row
+      end
+    end
+
+    context 'when there are no four consecutive pieces in any row' do
+      subject(:board_not_consecutive_row) { described_class.new([not_consecutive_row] + Array.new(5) { Array.new(7) }) }
+      let(:not_consecutive_row) { ["\u26aa", "\u26aa", "\u26ab", "\u26aa", "\u26aa", "\u26aa", nil] }
+
+      it 'returns false' do
+        expect(board_not_consecutive_row).not_to be_four_consecutive_in_row
       end
     end
   end

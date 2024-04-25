@@ -32,4 +32,12 @@ class Board
       end
     end
   end
+
+  def four_consecutive_in_column?
+    @board.transpose.any? do |col|
+      col.each_cons(4).any? do |cons_pieces|
+        cons_pieces.uniq.length == 1 && !cons_pieces.include?(nil)
+      end
+    end
+  end
 end

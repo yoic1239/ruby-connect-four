@@ -61,4 +61,24 @@ describe Board do
       end
     end
   end
+
+  describe '#four_consecutive_in_column?' do
+    context 'when there are four consecutive pieces in any column' do
+      subject(:board_cons_column) { described_class.new(([cons_col] + Array.new(6) { Array.new(6) }).transpose) }
+      let(:cons_col) { Array.new(1) + Array.new(4, "\u26aa") + Array.new(1) }
+
+      it 'returns true' do
+        expect(board_cons_column).to be_four_consecutive_in_column
+      end
+    end
+
+    context 'when there are no four consecutive pieces in any column' do
+      subject(:board_no_cons_col) { described_class.new(([not_cons_col] + Array.new(6) { Array.new(6) }).transpose) }
+      let(:not_cons_col) { ["\u26aa", "\u26aa", "\u26ab", "\u26aa", "\u26aa", "\u26aa"] }
+
+      it 'returns false' do
+        expect(board_no_cons_col).not_to be_four_consecutive_in_column
+      end
+    end
+  end
 end

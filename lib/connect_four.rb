@@ -9,9 +9,11 @@ class Game
     @player1 = Player.new('Player 1', "\u26aa")
     @player2 = Player.new('Player 2', "\u26ab")
     @board = board
+    @curr_player = @player1
   end
 
   def play
+    introduction
   end
 
   def player_input
@@ -26,5 +28,17 @@ class Game
         puts 'Invalid input! You should input a valid column.'
       end
     end
+  end
+
+  def introduction
+    puts <<~HEREDOC
+
+      Welcome to the Connect Four game!
+
+      1. Take turns to drop pieces into the cage.
+      2. You win once you get 4 of your pieces consecutively in a row, column, or along a diagonal.
+
+    HEREDOC
+    @board.display
   end
 end

@@ -13,6 +13,7 @@ class Board
       end
       puts '|'
     end
+    puts "\e[1;32m 1  2  3  4  5  6  7\e[0m"
   end
 
   def full_column?(column)

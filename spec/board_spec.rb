@@ -23,6 +23,26 @@ describe Board do
     end
   end
 
+  describe '#full?' do
+    context 'when there is no nil element in the board' do
+      subject(:board_full) { described_class.new(Array.new(6, full_row)) }
+      let(:full_row) { ["\u26ab", "\u26ab", "\u26ab", "\u26aa", "\u26ab", "\u26aa", "\u26aa"] }
+
+      it 'is full' do
+        expect(board_full).to be_full
+      end
+    end
+
+    context 'when there is any nil element in the board' do
+      subject(:board_not_full) { described_class.new(Array.new(6, not_full_row)) }
+      let(:not_full_row) { [nil, "\u26ab", "\u26ab", "\u26aa", "\u26ab", "\u26aa", "\u26aa"] }
+
+      it 'is not full' do
+        expect(board_not_full).not_to be_full
+      end
+    end
+  end
+
   describe '#update_board' do
     subject(:board_update) { described_class.new([["\u26aa"] + Array.new(6)] + Array.new(5) { Array.new(7) }) }
     context 'when the column is empty' do

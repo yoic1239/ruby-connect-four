@@ -20,6 +20,10 @@ class Board
     @board.all? { |row| row[column] }
   end
 
+  def full?
+    !@board.flatten.include?(nil)
+  end
+
   def update_board(column, piece)
     update_row = @board.find_index { |row| row[column].nil? }
     @board[update_row][column] = piece

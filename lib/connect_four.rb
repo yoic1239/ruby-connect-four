@@ -38,6 +38,11 @@ class Game
     @board.update_board(selected_column, @curr_player.piece)
   end
 
+  def win?
+    @board.four_consecutive_in_row? || @board.four_consecutive_in_column? ||
+      @board.four_consecutive_in_left_diagonal? || @board.four_consecutive_in_right_diagonal?
+  end
+
   def introduction
     puts <<~HEREDOC
 

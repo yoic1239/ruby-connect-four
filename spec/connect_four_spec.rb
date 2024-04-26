@@ -96,4 +96,100 @@ describe Game do
       end
     end
   end
+
+  describe '#win?' do
+    subject(:game_win) { described_class.new(board_win) }
+    let(:board_win) { instance_double(Board) }
+
+    context 'when there are four consecutive pieces in a row' do
+      before do
+        allow(board_win).to receive(:four_consecutive_in_row?)
+        allow(board_win).to receive(:four_consecutive_in_column?)
+        allow(board_win).to receive(:four_consecutive_in_left_diagonal?)
+        allow(board_win).to receive(:four_consecutive_in_right_diagonal?)
+      end
+
+      it 'sends four_consecutive_in_row to board' do
+        expect(board_win).to receive(:four_consecutive_in_row?).once
+        game_win.win?
+      end
+
+      it 'sends four_consecutive_in_column to board' do
+        expect(board_win).to receive(:four_consecutive_in_column?).once
+        game_win.win?
+      end
+
+      it 'sends four_consecutive_in_left_diagonal to board' do
+        expect(board_win).to receive(:four_consecutive_in_left_diagonal?).once
+        game_win.win?
+      end
+
+      it 'sends four_consecutive_in_right_diagonal to board' do
+        expect(board_win).to receive(:four_consecutive_in_right_diagonal?).once
+        game_win.win?
+      end
+    end
+
+    context 'when there are 4 consecutive pieces in a row' do
+      before do
+        allow(board_win).to receive(:four_consecutive_in_row?).and_return(true)
+      end
+
+      it 'either player wins the game' do
+        expect(game_win).to be_win
+      end
+    end
+
+    context 'when there are 4 consecutive pieces in a column' do
+      before do
+        allow(board_win).to receive(:four_consecutive_in_row?).and_return(false)
+        allow(board_win).to receive(:four_consecutive_in_column?).and_return(true)
+      end
+
+      it 'either player wins the game' do
+        expect(game_win).to be_win
+      end
+    end
+
+    context 'when there are 4 consecutive pieces in any left diagonal' do
+      before do
+        allow(board_win).to receive(:four_consecutive_in_row?).and_return(false)
+        allow(board_win).to receive(:four_consecutive_in_column?).and_return(false)
+        allow(board_win).to receive(:four_consecutive_in_left_diagonal?).and_return(true)
+      end
+
+      it 'either player wins the game' do
+        expect(game_win).to be_win
+      end
+    end
+
+    context 'when there are 4 consecutive pieces in any right diagonal' do
+      before do
+        allow(board_win).to receive(:four_consecutive_in_row?).and_return(false)
+        allow(board_win).to receive(:four_consecutive_in_column?).and_return(false)
+        allow(board_win).to receive(:four_consecutive_in_left_diagonal?).and_return(false)
+        allow(board_win).to receive(:four_consecutive_in_right_diagonal?).and_return(true)
+      end
+
+      it 'either player wins the game' do
+        expect(game_win).to be_win
+      end
+    end
+
+    context 'when there are no 4 conseutive pieces in any direction' do
+      subject(:game_not_win) { described_class.new(board_not_win) }
+      let(:board_not_win) { instance_double(Board) }
+
+      before do
+        allow(board_not_win).to receive(:four_consecutive_in_row?).and_return(false)
+        allow(board_not_win).to receive(:four_consecutive_in_column?).and_return(false)
+        allow(board_not_win).to receive(:four_consecutive_in_left_diagonal?).and_return(false)
+        allow(board_not_win).to receive(:four_consecutive_in_right_diagonal?).and_return(false)
+      end
+
+      it 'no one wins the game yet' do
+        expect(game_not_win).not_to be_win
+      end
+    end
+  end
 end

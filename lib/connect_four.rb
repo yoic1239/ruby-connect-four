@@ -60,6 +60,5 @@ class Game
       2. You win once you get 4 of your pieces consecutively in a row, column, or along a diagonal.
 
     HEREDOC
-    @board.display
   end
 end

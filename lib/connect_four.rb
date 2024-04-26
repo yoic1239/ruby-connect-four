@@ -21,6 +21,7 @@ class Game
 
       change_player
     end
+    show_result
   end
 
   def player_input
@@ -66,5 +67,10 @@ class Game
       2. You win once you get 4 of your pieces consecutively in a row, column, or along a diagonal.
 
     HEREDOC
+  end
+
+  def show_result
+    @board.display
+    puts win? ? "\e[046mCongrats! #{@curr_player.name} wins the game!\e[0m" : "\e[45mTie! You play a good game!\e[0m"
   end
 end

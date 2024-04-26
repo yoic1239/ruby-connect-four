@@ -14,7 +14,13 @@ class Game
 
   def play
     introduction
-    drop_piece
+    loop do
+      @board.display
+      drop_piece
+      break if game_over?
+
+      change_player
+    end
   end
 
   def player_input

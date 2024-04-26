@@ -4,6 +4,29 @@ require_relative '../lib/connect_four'
 
 describe Game do
   describe '#play' do
+    subject(:game_play) { described_class.new }
+
+    context 'when game_over? is false once' do
+      before do
+        allow(game_play).to receive(:game_over?).and_return(false, true)
+      end
+
+      it 'calls drop_piece 2 times' do
+        expect(game_play).to receive(:drop_piece).twice
+        game_play.play
+      end
+    end
+
+    context 'when game_over? is false 10 times' do
+      before do
+        allow(game_play).to receive(:game_over?).and_return(false, false, false, false, false, false, false, false, false, false, true)
+      end
+
+      it 'calls drop_piece 11 times' do
+        expect(game_play).to receive(:drop_piece).exactly(11).times
+        game_play.play
+      end
+    end
   end
 
   describe '#player_input' do

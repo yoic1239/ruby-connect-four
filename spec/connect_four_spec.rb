@@ -192,4 +192,44 @@ describe Game do
       end
     end
   end
+
+  describe '#game_over?' do
+    subject(:game_end) { described_class.new(board_end) }
+    let(:board_end) { instance_double(Board) }
+
+    context 'when the board is full' do
+      before do
+        allow(game_end).to receive(:win?).and_return(false)
+        allow(board_end).to receive(:full?).and_return(true)
+      end
+
+      it 'is game over' do
+        expect(game_end).to be_game_over
+      end
+    end
+
+    context 'when either player wins the game' do
+      before do
+        allow(game_end).to receive(:win?).and_return(true)
+      end
+
+      it 'is game over' do
+        expect(game_end).to be_game_over
+      end
+    end
+
+    context 'when the board is not full and no player wins the game yet' do
+      subject(:game_middle) { described_class.new(board_not_full) }
+      let(:board_not_full) { instance_double(Board) }
+
+      before do
+        allow(game_middle).to receive(:win?).and_return(false)
+        allow(board_not_full).to receive(:full?).and_return(false)
+      end
+
+      it 'is not game over' do
+        expect(game_middle).not_to be_game_over
+      end
+    end
+  end
 end

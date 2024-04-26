@@ -43,6 +43,10 @@ class Game
       @board.four_consecutive_in_left_diagonal? || @board.four_consecutive_in_right_diagonal?
   end
 
+  def game_over?
+    win? || @board.full?
+  end
+
   def introduction
     puts <<~HEREDOC
 

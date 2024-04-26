@@ -101,35 +101,6 @@ describe Game do
     subject(:game_win) { described_class.new(board_win) }
     let(:board_win) { instance_double(Board) }
 
-    context 'when there are four consecutive pieces in a row' do
-      before do
-        allow(board_win).to receive(:four_consecutive_in_row?)
-        allow(board_win).to receive(:four_consecutive_in_column?)
-        allow(board_win).to receive(:four_consecutive_in_left_diagonal?)
-        allow(board_win).to receive(:four_consecutive_in_right_diagonal?)
-      end
-
-      it 'sends four_consecutive_in_row to board' do
-        expect(board_win).to receive(:four_consecutive_in_row?).once
-        game_win.win?
-      end
-
-      it 'sends four_consecutive_in_column to board' do
-        expect(board_win).to receive(:four_consecutive_in_column?).once
-        game_win.win?
-      end
-
-      it 'sends four_consecutive_in_left_diagonal to board' do
-        expect(board_win).to receive(:four_consecutive_in_left_diagonal?).once
-        game_win.win?
-      end
-
-      it 'sends four_consecutive_in_right_diagonal to board' do
-        expect(board_win).to receive(:four_consecutive_in_right_diagonal?).once
-        game_win.win?
-      end
-    end
-
     context 'when there are 4 consecutive pieces in a row' do
       before do
         allow(board_win).to receive(:four_consecutive_in_row?).and_return(true)

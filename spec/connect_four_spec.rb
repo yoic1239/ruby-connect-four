@@ -203,4 +203,30 @@ describe Game do
       end
     end
   end
+
+  describe '#change_player' do
+    context 'when current player is Player 1' do
+      subject(:game_change_player1) { described_class.new }
+
+      it 'changes current player to Player 2' do
+        player1 = game_change_player1.instance_variable_get(:@player1)
+        player2 = game_change_player1.instance_variable_get(:@player2)
+        expect { game_change_player1.change_player }.to change { game_change_player1.instance_variable_get(:@curr_player) }.from(player1).to(player2)
+      end
+    end
+
+    context 'when current player is Player 2' do
+      subject(:game_change_player2) { described_class.new }
+      before do
+        player2 = game_change_player2.instance_variable_get(:@player2)
+        game_change_player2.instance_variable_set(:@curr_player, player2)
+      end
+
+      it 'changes current player to Player 1' do
+        player1 = game_change_player2.instance_variable_get(:@player1)
+        player2 = game_change_player2.instance_variable_get(:@player2)
+        expect { game_change_player2.change_player }.to change { game_change_player2.instance_variable_get(:@curr_player) }.from(player2).to(player1)
+      end
+    end
+  end
 end

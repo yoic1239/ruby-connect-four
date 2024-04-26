@@ -47,6 +47,10 @@ class Game
     win? || @board.full?
   end
 
+  def change_player
+    @curr_player = @curr_player == @player2 ? @player1 : @player2
+  end
+
   def introduction
     puts <<~HEREDOC
 

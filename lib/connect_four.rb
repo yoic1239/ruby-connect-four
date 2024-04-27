@@ -28,7 +28,7 @@ class Game
   def player_input
     loop do
       user_input = gets.chomp
-      input_column = user_input.to_i - 1 if user_input.between?('1', '7')
+      input_column = user_input.to_i - 1 if /\D/.match(user_input).nil? && user_input.to_i.between?(1, 7)
       return input_column if input_column && !@board.full_column?(input_column)
 
       if input_column

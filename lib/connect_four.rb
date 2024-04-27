@@ -21,6 +21,7 @@ class Game
 
       change_player
     end
+    @board.display
     show_result
   end
 
@@ -58,6 +59,8 @@ class Game
     @curr_player = @curr_player == @player2 ? @player1 : @player2
   end
 
+  private
+
   def introduction
     puts <<~HEREDOC
 
@@ -70,7 +73,6 @@ class Game
   end
 
   def show_result
-    @board.display
     puts win? ? "\e[046mCongrats! #{@curr_player.name} wins the game!\e[0m" : "\e[45mTie! You play a good game!\e[0m"
   end
 end
